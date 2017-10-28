@@ -1,0 +1,36 @@
+module address-translation {
+  namespace "http://acmeinc.com/example/addresstranslation";
+  prefix address-translation;
+
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import tailf-ncs {
+    prefix ncs;
+  }
+
+  list address-translation {
+    key name;
+
+    uses ncs:service-data;
+    ncs:servicepoint "address-translation";
+
+    leaf name {
+      type string;
+    }
+
+    // may replace this with other ways of refering to the devices.
+    leaf device {
+      type leafref {
+        path "/ncs:devices/ncs:device/ncs:name";
+      }
+    }
+    // replace with your own stuff here
+    leaf global-ip {
+      type inet:ipv4-address;
+    }
+    leaf local-ip {
+      type inet:ipv4-address;
+    }
+  }
+}
